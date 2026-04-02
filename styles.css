@@ -34,7 +34,7 @@ button {
     cursor: pointer;
 }
 
-#new-book-btn, #add-book-btn, #remove-book-btn {
+#new-book-btn, #add-book-btn, #remove-book-btn, #read-book-btn {
     border: 1px solid #383838; 
     border-radius: 10px;
     padding: 10px 0px;
@@ -53,9 +53,13 @@ button {
     align-self: flex-end;
 }
 
-#remove-book-btn {
+.buttons-container {
+    display: flex;
+    gap: 5px;
+}
+
+#remove-book-btn, #read-book-btn {
     font-size: 0.8rem;
-    width: 80px;
     padding: 8px;
 }
 

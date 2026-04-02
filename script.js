@@ -12,6 +12,10 @@ function Book(title, author, pages, read) {
 	};
 }
 
+Book.prototype.updateReadStatus = function() {
+	return this.read === "Read" ? this.read = "Unread" : this.read = "Read";
+};
+
 function addBookToLibrary(title, author, pages, read) {
 	let newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
@@ -46,11 +50,15 @@ function displayBook(myLibrary) {
 		bookRead.textContent = book.read;
 		bookDiv.appendChild(bookRead);
 		
+		// create buttons container
+		const buttonContainer = document.createElement("div");
+		buttonContainer.classList = "buttons-container";
+
 		// create "remove" button
 		const removeBookBtn = document.createElement("button");
 		removeBookBtn.id = "remove-book-btn";
 		removeBookBtn.textContent = "Remove";
-		bookDiv.appendChild(removeBookBtn);
+		buttonContainer.appendChild(removeBookBtn);
 		
 		// remove book button event
 		removeBookBtn.addEventListener("click", () => {
@@ -58,7 +66,23 @@ function displayBook(myLibrary) {
 			myLibrary.splice(index, 1); // remove book object from array
 			displayBook(myLibrary); // re-render list
 		});
+
+		// create read/un-read button
+		const readBookBtn = document.createElement("button");
+		readBookBtn.id = "read-book-btn";
+
+		// display different button text depending if read/unread
+		book.read === "Read" ? readBookBtn.textContent = "Toggle Unread" : readBookBtn.textContent = "Toggle Read";
 		
+		buttonContainer.appendChild(readBookBtn);
+		bookDiv.appendChild(buttonContainer);
+
+		// read/unread button event
+		readBookBtn.addEventListener("click", () => {
+			book.updateReadStatus();
+			displayBook(myLibrary); // re-render list
+		});
+
 		// append bookDiv to container
 		container.appendChild(bookDiv);
 	})
@@ -93,7 +117,10 @@ newBookModal.addEventListener("close", () => {
 	newBookForm.reset(); // reset form
 });
 
+// add starting books in library
 addBookToLibrary("1984", "George Orwell", 328, "Unread");
 addBookToLibrary("Pride and Prejudice", "Jane Austen", 384, "Read");
 addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, "Unread");
+
+// render books in library
 displayBook(myLibrary);
