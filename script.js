@@ -14,9 +14,7 @@ function Book(title, author, pages, read) {
 
 function addBookToLibrary(title, author, pages, read) {
 	let newBook = new Book(title, author, pages, read);
-    console.log(newBook.info());
     myLibrary.push(newBook);
-	console.log(myLibrary);
 }
 
 function displayBook(myLibrary) {
@@ -47,16 +45,24 @@ function displayBook(myLibrary) {
 		const bookRead = document.createElement("h4");
 		bookRead.textContent = book.read;
 		bookDiv.appendChild(bookRead);
-
-		// create "remove book" button
+		
+		// create "remove" button
 		const removeBookBtn = document.createElement("button");
 		removeBookBtn.id = "remove-book-btn";
 		removeBookBtn.textContent = "Remove";
 		bookDiv.appendChild(removeBookBtn);
 		
+		// remove book button event
+		removeBookBtn.addEventListener("click", () => {
+			const index = myLibrary.findIndex(b => b.id === book.id); // find index
+			myLibrary.splice(index, 1); // remove book object from array
+			displayBook(myLibrary); // re-render list
+		});
+		
 		// append bookDiv to container
 		container.appendChild(bookDiv);
 	})
+	console.log(myLibrary);
 }
 
 const newBookModal = document.querySelector("#new-book-dialog");
@@ -77,7 +83,7 @@ newBookModal.addEventListener("submit", (e) => {
 	
 	// display book on page
 	displayBook(myLibrary);
-
+	
 	// close modal
 	newBookModal.close();
 });
