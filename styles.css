@@ -34,7 +34,7 @@ button {
     cursor: pointer;
 }
 
-#new-book-btn, #add-book-btn {
+#new-book-btn, #add-book-btn, #remove-book-btn {
     border: 1px solid #383838; 
     border-radius: 10px;
     padding: 10px 0px;
@@ -51,6 +51,12 @@ button {
     font-size: 0.9rem;
     width: 85px;
     align-self: flex-end;
+}
+
+#remove-book-btn {
+    font-size: 0.8rem;
+    width: 80px;
+    padding: 8px;
 }
 
 #close-btn {
@@ -120,7 +126,7 @@ input:focus {
 
 .books-list-header {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr) 0.5fr;
     gap: 10px;
     background-color: #fff;
     padding: 20px;
@@ -136,11 +142,12 @@ input:focus {
 
 .book-card {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr) 0.5fr;
     background-color: #fff;
     padding: 20px;
     box-shadow: 3px 3px 3px var(--shadow-color);
     text-align: center;
+    align-items: center;
     gap: 10px;
 }
 

@@ -47,6 +47,12 @@ function displayBook(myLibrary) {
 		const bookRead = document.createElement("h4");
 		bookRead.textContent = book.read;
 		bookDiv.appendChild(bookRead);
+
+		// create "remove book" button
+		const removeBookBtn = document.createElement("button");
+		removeBookBtn.id = "remove-book-btn";
+		removeBookBtn.textContent = "Remove";
+		bookDiv.appendChild(removeBookBtn);
 		
 		// append bookDiv to container
 		container.appendChild(bookDiv);
