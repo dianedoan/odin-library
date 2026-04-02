@@ -13,48 +13,75 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary(title, author, pages, read) {
-    let newBook = new Book(title, author, pages, read);
+	let newBook = new Book(title, author, pages, read);
     console.log(newBook.info());
     myLibrary.push(newBook);
+	console.log(myLibrary);
 }
-
-addBookToLibrary("1984", "George Orwell", 328, "Unread");
-addBookToLibrary("Pride and Prejudice", "Jane Austen", 384, "Read");
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, "Unread");
-
-console.log(myLibrary);
 
 function displayBook(myLibrary) {
 	const container = document.querySelector("#books-list");
+	container.innerHTML = ""; // clear existing displayed books to prevent duplicates
 	
 	myLibrary.forEach(book => {
 		// create book card element
 		const bookDiv = document.createElement("div");
 		bookDiv.classList.add("book-card");
-
+		
 		// create book title element
 		const bookTitle = document.createElement("h4");
 		bookTitle.textContent = book.title;
 		bookDiv.appendChild(bookTitle);
-
+		
 		// create book author element
 		const bookAuthor = document.createElement("h4");
 		bookAuthor.textContent = book.author;
 		bookDiv.appendChild(bookAuthor);
-
+		
 		// create book pages element
 		const bookPages = document.createElement("h4");
 		bookPages.textContent = book.pages;
 		bookDiv.appendChild(bookPages);
-
+		
 		// create book read element
 		const bookRead = document.createElement("h4");
 		bookRead.textContent = book.read;
 		bookDiv.appendChild(bookRead);
-
+		
 		// append bookDiv to container
 		container.appendChild(bookDiv);
 	})
 }
 
+const newBookModal = document.querySelector("#new-book-dialog");
+const newBookForm = document.querySelector("#new-book-form");
+
+// submit button
+newBookModal.addEventListener("submit", (e) => {
+	e.preventDefault(); // prevent page reload
+	
+	// get input values
+	const title = document.querySelector("#title").value;
+	const author = document.querySelector("#author").value;
+	const pages = document.querySelector("#pages").value;
+	const read = document.querySelector("#read").value;
+	
+	// add book to library array list
+	addBookToLibrary(title, author, pages, read);
+	
+	// display book on page
+	displayBook(myLibrary);
+
+	// close modal
+	newBookModal.close();
+});
+
+// close modal 
+newBookModal.addEventListener("close", () => {
+	newBookForm.reset(); // reset form
+});
+
+addBookToLibrary("1984", "George Orwell", 328, "Unread");
+addBookToLibrary("Pride and Prejudice", "Jane Austen", 384, "Read");
+addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, "Unread");
 displayBook(myLibrary);
