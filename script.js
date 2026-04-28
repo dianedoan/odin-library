@@ -95,7 +95,7 @@ const newBookModal = document.querySelector("#new-book-dialog");
 const newBookForm = document.querySelector("#new-book-form");
 
 // submit button
-newBookModal.addEventListener("submit", (e) => {
+newBookForm.addEventListener("submit", (e) => {
 	e.preventDefault(); // prevent page reload
 	
 	// get input values
