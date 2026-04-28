@@ -94,18 +94,50 @@ function displayBook(myLibrary) {
 const newBookModal = document.querySelector("#new-book-dialog");
 const newBookForm = document.querySelector("#new-book-form");
 
+// get input values
+const title = document.querySelector("#title");
+const author = document.querySelector("#author");
+const pages = document.querySelector("#pages");
+const read = document.querySelector("#read");
+
+// set custom form validation error messages
+title.addEventListener("invalid", () => {
+	if (title.value === "") {
+		title.setCustomValidity("Please enter a book title.");
+	}
+});
+
+author.addEventListener("invalid", () => {
+		if (author.value === "") {
+		author.setCustomValidity("Please enter a book author.");
+	}
+});
+
+pages.addEventListener("invalid", () => {
+	if (pages.value === "") {
+		pages.setCustomValidity("Please enter the number of pages the book contains.");
+	}
+});
+
+read.addEventListener("invalid", () => {
+	if (read.value === "") {
+		read.setCustomValidity("Please enter a reading status.");
+	}
+});
+
+// clear the error message when user starts typing
+[title, author, pages, read].forEach(input => {
+	input.addEventListener("input", () => {
+		input.setCustomValidity("");
+	});
+});
+
 // submit button
 newBookForm.addEventListener("submit", (e) => {
 	e.preventDefault(); // prevent page reload
-	
-	// get input values
-	const title = document.querySelector("#title").value;
-	const author = document.querySelector("#author").value;
-	const pages = document.querySelector("#pages").value;
-	const read = document.querySelector("#read").value;
-	
+
 	// add book to library array list
-	addBookToLibrary(title, author, pages, read);
+	addBookToLibrary(title.value, author.value, pages.value, read.value);
 	
 	// display book on page
 	displayBook(myLibrary);
